@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const redisUtils = require('../utils/redisUtil');
 const generateToken = (user) => {
   const jwtSecretKey = process.env.JWT_SECRET_KEY;
   const data = {
@@ -10,12 +11,19 @@ const generateToken = (user) => {
 
   return token;
 };
-const verifyToken = (token) => {
+const verifyToken = async (token) => {
   const jwtSecretKey = process.env.JWT_SECRET_KEY;
   const isTokenCorrect = jwt.verify(token, jwtSecretKey, (err, decoded) => {
     return err ? false : decoded;
   });
-
-  return isTokenCorrect;
+  if (!isTokenCorrect) {
+    return false;
+  }
+  const redisCheck = await redisUtils.getToken(isTokenCorrect.username);
+  console.log(redisCheck);
+  if (redisCheck !== token) return false;
+  else {
+    return isTokenCorrect;
+  }
 };
 module.exports = { generateToken, verifyToken };

@@ -1,17 +1,17 @@
 {
   "development": {
     "username": "postgres",
-    "password": null,
+    "password": "postgres",
     "database": "users",
-    "host": "127.0.0.1",
+    "host": "db",
     "dialect": "postgres",
-    "port": 5433
+    "port": 5432
   },
   "test": {
     "username": "postgres",
     "password": null,
     "database": "users",
-    "host": "127.0.0.1",
+    "host": "docker.for.mac.localhost",
     "dialect": "postgres",
     "port": 5433
   },
@@ -19,7 +19,7 @@
     "username": "postgres",
     "password": null,
     "database": "users",
-    "host": "127.0.0.1",
+    "host": "docker.for.mac.localhost",
     "dialect": "postgres",
     "port": 5433
   }
